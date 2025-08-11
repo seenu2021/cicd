@@ -1,15 +1,4 @@
-FROM centos:7
-
-# Install httpd (web server)
-RUN yum -y update && \
-    yum -y install httpd httpd-tools && \
-    yum clean all
-
-# Copy home page to Apache default document root
-COPY index.html /var/www/html/index.html
-
-# Expose HTTP port
+FROM ubuntu:14.04
+RUN apt-get update && apt-get install -y apache2 && apt-get install -y apache2-utils && apt-get clean
 EXPOSE 80
-
-# Start web server in the foreground
-CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
+CMD ["apache2ctl", "-D", "FOREGROUND"]
